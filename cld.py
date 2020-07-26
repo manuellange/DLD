@@ -94,7 +94,7 @@ def setup_argparser(conf=None):
                         type=str, default=None, dest="imagereader_keylines",
                         help=("precomputed keylines "
                               "to use instead of LSDDetector"))
-    common.add_argument("--keylines_use_right",
+    common.add_argument("--keylines_use_second_image", "--keylines_use_right",
                         action="store_true", dest="imagereader_keylines_use_right",
                         help="use right keylines")
     common.add_argument("--cutout_width",
