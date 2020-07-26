@@ -35,6 +35,8 @@ The program will calculate the descriptors and save them (use *--save_results*) 
 The corridor dataset including our labeled Ground Truth line information and also including already computed descriptors from the DLD can be found here [*LineDataset*](https://github.com/manuellange/LineDataset).
 
 ## 3. Usage
+The results are saved next to the images in `{name}.npz` files containing the descriptors and lines.
+
 Usage with precomputed keylines:
 ```powershell
 python3 .\cld.py --image_in "{PATH_TO_IMAGE}" --keylines_in "{PATH_TO_KEYLINES}" --cutout_width 27 --cutout_height 100 --gpu 0 test "{PATH_TO_MODEL}" -n 1 --depth 10 --debug --min_len 15 --fixed_length --save_results
