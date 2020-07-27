@@ -32,7 +32,7 @@ matplotlib (3.1.1)
 The code can be used with precomputed lines (and ground truth information) in order to test the network on the same lines which we used for the benchmarks in our paper.
 The line locations are in the *cpp.npz* files which we provide for the images (argument *--keylines_in "{PATH_TO_KEYLINES}"*.
 
-The *cpp.npz* contains the lines for the right and for the left image. Use the argument *--keylines_use_second_image* to read the right lines from the file, and in that case also provide the path to the right image *--image_in "{PATH_TO_IMAGE}"*.
+The *cpp.npz* contains the lines for the right and for the left image. Use the argument *--keylines_use_second_image* to read the second/right lines from the file, and in that case also provide the path to the right image *--image_in "{PATH_TO_IMAGE}"*.
 
 The program will calculate the descriptors and save them (use *--save_results*) next to the images.  The descriptors have to be calculated for the left and the right image separately.
 
@@ -50,7 +50,7 @@ python3 .\cld.py --image_in "{PATH_TO_IMAGE}" --keylines_in "{PATH_TO_KEYLINES}"
 
 Usage with precomputed keylines (provide second/right image):
 ```powershell
-python3 .\cld.py --image_in "{PATH_TO_IMAGE}" --keylines_in "{PATH_TO_KEYLINES}" --keylines_use_right --cutout_width 27 --cutout_height 100 --gpu 0 test "{PATH_TO_MODEL}" -n 1 --depth 10 --debug --min_len 15 --fixed_length --save_results
+python3 .\cld.py --image_in "{PATH_TO_IMAGE}" --keylines_in "{PATH_TO_KEYLINES}" --keylines_use_second_image --cutout_width 27 --cutout_height 100 --gpu 0 test "{PATH_TO_MODEL}" -n 1 --depth 10 --debug --min_len 15 --fixed_length --save_results
 ```
 
 Usage without precomputed keylines (lines will be detected):
