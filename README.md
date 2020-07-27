@@ -28,7 +28,15 @@ tensorpack (0.8.9)
 pandas (1.0.5)
 matplotlib (3.1.1)
 ```
-## 2. Preparation
+
+## 2. Setup
+We recommend setting up a python venv. The dependencies can be installed using the provided ```requirements.txt``` file and pip:
+```
+pip install -r requirements.txt
+```
+> 👉 Note: Python 3.6 and an appropriate pip version are required.
+
+## 3. Important Options
 The code can be used with precomputed lines (and ground truth information) in order to test the network on the same lines which we used for the benchmarks in our paper.
 The line locations are in the *cpp.npz* files which we provide for the images (argument *--keylines_in "{PATH_TO_KEYLINES}"*.
 
@@ -36,26 +44,26 @@ The *cpp.npz* contains the lines for the right and for the left image. Use the a
 
 The program will calculate the descriptors and save them (use *--save_results*) next to the images.  The descriptors have to be calculated for the left and the right image separately.
 
-The descriptors are in *im0.npz/im1.npz* files, which can be red and visualized by the [*LineLearningInterface*](https://github.com/manuellange/LineLearningInterface).
+The descriptors are in *im0.npz/im1.npz* files, which can be read and visualized by the [*LineLearningInterface*](https://github.com/manuellange/LineLearningInterface).  
 
 The corridor dataset including our labeled Ground Truth line information and also including already computed descriptors from the DLD can be found here [*LineDataset*](https://github.com/manuellange/LineDataset).
 
-## 3. Usage
+## 4. Usage
 The results are saved next to the images in `{name}.npz` files containing the descriptors and lines.
 
 Usage with precomputed keylines:
 ```powershell
-python3 .\cld.py --image_in "{PATH_TO_IMAGE}" --keylines_in "{PATH_TO_KEYLINES}" --cutout_width 27 --cutout_height 100 --gpu 0 test "{PATH_TO_MODEL}" -n 1 --depth 10 --debug --min_len 15 --fixed_length --save_results
+python3 cld.py --image_in "{PATH_TO_IMAGE}" --keylines_in "{PATH_TO_KEYLINES}" --cutout_width 27 --cutout_height 100 --gpu 0 test "{PATH_TO_MODEL}" -n 1 --depth 10 --debug --min_len 15 --fixed_length --save_results
 ```
 
 Usage with precomputed keylines (provide second/right image):
 ```powershell
-python3 .\cld.py --image_in "{PATH_TO_IMAGE}" --keylines_in "{PATH_TO_KEYLINES}" --keylines_use_second_image --cutout_width 27 --cutout_height 100 --gpu 0 test "{PATH_TO_MODEL}" -n 1 --depth 10 --debug --min_len 15 --fixed_length --save_results
+python3 cld.py --image_in "{PATH_TO_IMAGE}" --keylines_in "{PATH_TO_KEYLINES}" --keylines_use_second_image --cutout_width 27 --cutout_height 100 --gpu 0 test "{PATH_TO_MODEL}" -n 1 --depth 10 --debug --min_len 15 --fixed_length --save_results
 ```
 
 Usage without precomputed keylines (lines will be detected):
 ```powershell
-python3 .\cld.py --image_in "{PATH_TO_IMAGE}" --cutout_width 27 --cutout_height 100 --gpu 0 test "{PATH_TO_MODEL}" -n 1 --depth 10 --debug --min_len 25 --fixed_length --save_results
+python3 cld.py --image_in "{PATH_TO_IMAGE}" --cutout_width 27 --cutout_height 100 --gpu 0 test "{PATH_TO_MODEL}" -n 1 --depth 10 --debug --min_len 25 --fixed_length --save_results
 ```
 
 There are additional command line arguments which can be used to influence the process (`image_in`, `cutout_{width, height, count}`, `save_results`).
