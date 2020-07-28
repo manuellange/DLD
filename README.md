@@ -37,16 +37,17 @@ pip install -r requirements.txt
 > 👉 Note: Python 3.6 and an appropriate pip version are required.
 
 ## 3. Important Options
-The code can be used with precomputed lines (and ground truth information) in order to test the network on the same lines which we used for the benchmarks in our paper.
-The line locations are in the *cpp.npz* files which we provide for the images (argument *--keylines_in "{PATH_TO_KEYLINES}"*.
+The code can be used with precomputed lines (and ground truth information) in order to test the network on the same lines which we used for the benchmarks in our paper.  
+*--keylines_in "{PATH_TO_KEYLINES}"* reads the line locations from the *cpp.npz* keylines file which we provide for the images of our corridor dataset (see below).
 
-The *cpp.npz* contains the lines for the right and for the left image. Use the argument *--keylines_use_second_image* to read the second/right lines from the file, and in that case also provide the path to the right image *--image_in "{PATH_TO_IMAGE}"*.
+The *cpp.npz* contains the lines for the first/left and for the second/right image.  
+*--keylines_use_second_image* reads the second/right images' lines from the file, make sure to provide the path to the right image *--image_in "{PATH_TO_IMAGE}"*.
 
-The program will calculate the descriptors and save them (use *--save_results*) next to the images.  The descriptors have to be calculated for the left and the right image separately.
+*--save_results* causes the code to save the descriptors (next to the image file) after calculating them. The descriptors have to be calculated for the left and the right image separately.
 
-The descriptors are in *im0.npz/im1.npz* files, which can be read and visualized by the [*LineLearningInterface*](https://github.com/manuellange/LineLearningInterface).  
+*im0.npz/im1.npz* are the files containing the descriptors. These can be read and visualized using the [*LineLearningInterface*](https://github.com/manuellange/LineLearningInterface).  
 
-The corridor dataset including our labeled Ground Truth line information and also including already computed descriptors from the DLD can be found here [*LineDataset*](https://github.com/manuellange/LineDataset).
+The corridor dataset including our labeled Ground Truth line information (*cpp.npz*) and also including already computed descriptors (*im0.npz/im1.npz*) from the DLD can be found here [*LineDataset*](https://github.com/manuellange/LineDataset).
 
 ## 4. Usage
 The results are saved next to the images in `{name}.npz` files containing the descriptors and lines.
