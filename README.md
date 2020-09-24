@@ -1,6 +1,7 @@
 # DLD: A Deep Learning Based Line Descriptor for Line Feature Matching #
 
 This repository contains the implementation of our DLD paper.
+Have a look at our successor [*WLD*](https://github.com/manuellange/WLD)
 
 **Notice:** This repository does not contain the C++ Code which is a part of the project used for training and testing.
 However, we added code that enables the testing functionality solely using python (special thanks goes to Robin Niebergall).
