@@ -289,8 +289,8 @@ class Model(tp.ModelDesc):
         l_change_delta = l_change_delta / 255.0
 
         def get_n_logits(el, h):
-            delta = tf.random_uniform([], -l_change_delta, l_change_delta)
-            prob = tf.to_int32(tf.random_uniform([]) > l_change_prob)
+            delta = tf.random.uniform([], -l_change_delta, l_change_delta)
+            prob = tf.to_int32(tf.random.uniform([]) > l_change_prob)
             prob = tf.to_float(prob)
             # # el = tf.image.random_brightness(el, l_change_delta)
             # el = tf.image.adjust_brightness(el, prob * delta)
@@ -346,24 +346,26 @@ class Model(tp.ModelDesc):
 
     def inputs(self):
         """Define inputs for training/validation phase."""
-        inputs = [tf.placeholder(tf.float32,
-                                 (None, config.C_HEIGHT, config.C_WIDTH, 4),
-                                 "input")]
-        inputs += [tf.placeholder(tf.int32,
-                                  (None, ), "heights")]
+        inputs = [tf.compat.v1.placeholder(tf.float32,
+                                           (None, config.C_HEIGHT, config.C_WIDTH, 4),
+                                           "input")]
+        inputs += [tf.compat.v1.placeholder(tf.int32,
+                                            (None,), "heights")]
+
         if (config.debug_cutout):
             inputs.append(
-                tf.placeholder(tf.float32,
-                               (None, config.C_HEIGHT, config.C_WIDTH, 4),
-                               "input2"))
+                tf.compat.v1.placeholder(tf.float32,
+                                         (None, config.C_HEIGHT, config.C_WIDTH, 4),
+                                         "input2"))
+
         inputs += [
-            tf.placeholder(tf.bool,
+            tf.compat.v1.placeholder(tf.bool,
                            (None, ),
                            "left"),
-            tf.placeholder(tf.int32,
+            tf.compat.v1.placeholder(tf.int32,
                            (None, ),
                            "label"),
-            tf.placeholder(tf.uint8,
+            tf.compat.v1.placeholder(tf.uint8,
                            (None, 32, ),
                            "lbd.descriptor")
         ]
@@ -387,7 +389,7 @@ class Model(tp.ModelDesc):
         embeddings = self.embed(em, heights, 8, config.fixed_length,
                                 config.prob, config.brightness_d)
 
-        with tf.variable_scope(tf.get_variable_scope(), reuse=True):
+        with tf.compat.v1.variable_scope(tf.compat.v1.get_variable_scope(), reuse=True):
             tf.identity(embeddings, name="emb")
 
         cost, pos_dist, neg_dist, num_lines = self.loss(labels,

@@ -238,7 +238,7 @@ def get_predictor(model_path, model=None):
     if model:
         sess_conf = tp.tfutils.get_default_sess_config()
         sess_conf.log_device_placement = config.LOG_DEVICES
-        session_creator = tf.train.ChiefSessionCreator(config=sess_conf)
+        session_creator = tf.compat.v1.train.ChiefSessionCreator(config=sess_conf)
 
         pred = tp.OfflinePredictor(
             tp.PredictConfig(
@@ -418,7 +418,7 @@ def test(dataset, model_paths, model=None):
 
     def pairwise(sess):
         from cnn.main import pairwise_distance
-        descs = tf.placeholder(tf.float32, (None, 8, ), "descs")
+        descs = tf.compat.v1.placeholder(tf.float32, (None, 8, ), "descs")
         cnn_dists = pairwise_distance(descs, True)
         pred = tp.OnlinePredictor([descs], [cnn_dists], sess=sess)
 
@@ -429,9 +429,9 @@ def test(dataset, model_paths, model=None):
 
     _L = logger.getLogger("test")  # noqa
 
-    sess = tf.Session()
-    cnn_summ = tf.summary.FileWriter(tp.logger.get_logger_dir() + "/cnn")
-    lbd_summ = tf.summary.FileWriter(tp.logger.get_logger_dir() + "/lbd")
+    sess = tf.compat.v1.Session()
+    cnn_summ = tf.compat.v1.summary.FileWriter(tp.logger.get_logger_dir() + "/cnn")
+    lbd_summ = tf.compat.v1.summary.FileWriter(tp.logger.get_logger_dir() + "/lbd")
 
     cnn_logdir = cnn_summ.get_logdir()
 
@@ -444,7 +444,7 @@ def test(dataset, model_paths, model=None):
     for model_path in model_paths:
         # get global step
         real_path = get_checkpoint_path(model_path)
-        reader = tf.train.NewCheckpointReader(real_path)
+        reader = tf.compat.v1.train.NewCheckpointReader(real_path)
         global_step = reader.get_tensor("global_step")
 
         # predictor
@@ -454,8 +454,8 @@ def test(dataset, model_paths, model=None):
         imgs = []
 
         # summaries
-        cnn_summaries = tf.Summary()
-        lbd_summaries = tf.Summary()
+        cnn_summaries = tf.compat.v1.Summary()
+        lbd_summaries = tf.compat.v1.Summary()
 
         # collected data for ROC curves
         roc_data = []

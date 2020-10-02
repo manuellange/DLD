@@ -60,9 +60,9 @@ def preresnet_bottleneck(x, ch_out, stride, preact):
 
 
 def preresnet_group(x, name, block_func, features, count, stride):
-    with tf.variable_scope(name):
+    with tf.compat.v1.variable_scope(name):
         for i in range(0, count):
-            with tf.variable_scope('block{}'.format(i)):
+            with tf.compat.v1.variable_scope('block{}'.format(i)):
                 # first block doesn't need activation
                 x = block_func(x, features,
                                stride if i == 0 else 1,
