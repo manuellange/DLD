@@ -2,7 +2,7 @@
 # tested numpy version 1.18.5
 # tested tensorpack version 0.10.1
 numpy < 1.19.0, >= 1.16.0
-tensorflow == 1.15.4
+tensorflow == 2.5.0
 tensorpack == 0.10.1
 
 # original packages
